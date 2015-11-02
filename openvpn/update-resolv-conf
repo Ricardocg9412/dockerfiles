@@ -1,0 +1,29 @@
+#!/bin/sh
+env >/tmp/env
+
+# 
+# Parses DHCP options from openvpn to update resolv.conf
+# 
+# Example envs set from openvpn:
+#
+#     foreign_option_1='dhcp-option DNS 193.43.27.132'
+#     foreign_option_2='dhcp-option DNS 193.43.27.133'
+#     foreign_option_3='dhcp-option DOMAIN be.bnc.ch'
+#
+
+env | grep ^foreign_option_ | {
+    rm -f /tmp/resolv.conf
+    search=
+    while read part1 part2 part3; do
+        case "$part2" in
+        DNS)
+            echo nameserver $part3 >>/tmp/resolv.conf
+            ;;
+        DOMAIN)
+            search="$search $part3"
+            ;;
+        esac
+    done
+    [ "$search" ] && echo "search$search" >>/tmp/resolv.conf
+    [ -f /tmp/resolv.conf ] && cat /tmp/resolv.conf >/etc/resolv.conf
+}
