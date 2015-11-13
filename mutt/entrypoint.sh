@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "WTF"
 if [[ -z "$EMAIL" ]]; then
 	echo >&2 'error: missing EMAIL environment variable'
 	echo >&2 '  try running again with -e EMAIL=your-email@gmail.com'
@@ -29,14 +28,14 @@ if [[ -z "$SMTP_SERVER" ]]; then
 	echo >&2 'error: missing SMTP_SERVER environment variable'
 fi
 
-sed -i "s/%EMAIL_LOGIN%/$EMAIL/g"       "$HOME/.mutt/muttrc"
+sed -i "s/%EMAIL_LOGIN%/$EMAIL_USER/g"       "$HOME/.mutt/muttrc"
 sed -i "s/%EMAIL_USER%/$EMAIL_USER/g"   "$HOME/.mutt/muttrc"
 sed -i "s/%EMAIL_PASS%/$EMAIL_PASS/g"   "$HOME/.mutt/muttrc"
 sed -i "s/%EMAIL_FROM%/$EMAIL_FROM/g"   "$HOME/.mutt/muttrc"
 sed -i "s/%IMAP_SERVER%/$IMAP_SERVER/g" "$HOME/.mutt/muttrc"
 sed -i "s/%SMTP_SERVER%/$SMTP_SERVER/g" "$HOME/.mutt/muttrc"
 
-cat "$HOME/.mutt/muttrc"
+head -15 "$HOME/.mutt/muttrc"
 
 if [[ -d "$HOME/.gnupg" ]]; then
 	# sane gpg settings to be a good encryption
@@ -66,7 +65,5 @@ fi
 if [[ -e "$HOME/.muttrc.local" ]]; then
 	echo "source $HOME/.muttrc.local" >> "$HOME/.mutt/muttrc"
 fi
-
-cat "$HOME/.mutt/muttrc"
 
 exec "$@"
