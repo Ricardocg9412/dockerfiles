@@ -2,14 +2,14 @@
 
 # docker run -it \
 #	-v /etc/localtime:/etc/localtime:ro \
-#	-e GMAIL -e GMAIL_NAME \ # pass env variables to config
-#	-e GMAIL_PASS -e GMAIL_FROM \
+#	-e EMAIL -e EMAIL_NAME \ # pass env variables to config
+#	-e EMAIL_PASS -e EMAIL_FROM \
 #	-v $HOME/.gnupg:/home/user/.gnupg \ # so you can encrypt ;)
 #	--name mutt \
 #	jess/mutt
 #
 FROM debian:sid
-MAINTAINER Jessica Frazelle <jess@docker.com>
+MAINTAINER AJ Bowen <aj@soulshake.net>
 
 RUN groupadd -g 1000 user \
 	&& useradd --create-home -d /home/user -g user -u 1000 user
@@ -25,6 +25,9 @@ RUN apt-get update && apt-get install -y \
 	vim-nox \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
+
+COPY entrypoint.sh /entrypoint.sh
+ADD entrypoint.sh /entrypoint.sh
 
 # a browser is necessary!
 ENV BROWSER lynx
@@ -42,8 +45,7 @@ RUN git clone https://github.com/jfrazelle/.vim.git $HOME/.vim \
 
 ENV LANG C.UTF-8
 
-COPY	entrypoint.sh	/entrypoint.sh
-COPY	.mutt			$HOME/.mutt
+COPY .mutt $HOME/.mutt
 
 ENTRYPOINT ["/entrypoint.sh"]
 
