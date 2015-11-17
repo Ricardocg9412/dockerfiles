@@ -1,0 +1,17 @@
+lookit:
+    build: .
+    #volumes:
+    #    - entrypoint.sh:/entrypoint.sh
+    #    - resolv.conf:/etc/resolv.conf
+    #devices:
+    #    - /dev/net/tun:/dev/net/tun
+    #cap_add:
+    #    - NET_ADMIN
+    #ports:
+    #    - 80:80
+    dns:
+        - 8.8.8.8
+        - 8.8.4.4
+    #net: bridge
+    command:
+        "/entrypoint.sh"
