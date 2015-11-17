@@ -3,6 +3,8 @@ vpn:
   volumes:
     - .:/etc/openvpn
     - /etc/resolv.conf:/etc/resolv.conf
+    - ~/.secret/LDAP:/root/credentials.txt
+    - /home/aj/git/dockerfiles/openvpn/config.conf:/root/config.conf
   net: host
   devices:
     - /dev/net/tun:/dev/net/tun
