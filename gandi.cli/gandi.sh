@@ -7,12 +7,14 @@ gandi(){
         docker run -it --rm \
             --name gandi \
             -v $HOME/.config/gandi/config.yaml:/home/root/.config/gandi/config.yaml \
+            -e API_ENV -e API_HOST -e API_KEY \
             soulshake/gandi.cli "$@"
     else
         # run gandi setup, then copy it to the standard config location
         # echo "no gandi config found in homedir, need to run setup"
         docker run -it --rm \
             --name gandi \
+            -e API_ENV -e API_HOST -e API_KEY \
             --entrypoint /entrypoint.sh \
             soulshake/gandi.cli | tee /tmp/gandiconfig.txt
         mkdir -p $HOME/.config/gandi/
@@ -21,4 +23,3 @@ gandi(){
         rm /tmp/gandiconfig.txt
     fi
 }
-
