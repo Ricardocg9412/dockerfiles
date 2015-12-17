@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     python-docutils \
 	&& pip install gandi.cli
 
-ADD ./entrypoint.sh /entrypoint.sh
+ADD ./gen-config.sh /gen-config.sh
 
 #RUN apt-get install -y wget man
 #RUN wget https://github.com/Gandi/gandi.cli/blob/master/gandicli.man.rst
