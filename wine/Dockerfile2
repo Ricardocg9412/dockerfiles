@@ -1,0 +1,41 @@
+# Wine docker image base
+FROM debian:jessie
+MAINTAINER Jessie Frazelle <jess@linux.com>
+
+# install wine
+RUN apt-get update && apt-get install -y \
+	wine \
+	--no-install-recommends && \
+	dpkg --add-architecture amd64 && \
+	apt-get update && \
+	apt-get install -y \
+	wine64
+
+RUN apt-get install -y man
+RUN apt-get install -y wget
+
+# Install mono
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+RUN echo "deb http://download.mono-project.com/repo/debian wheezy main" | tee /etc/apt/sources.list.d/mono-xamarin.list
+RUN apt-get update
+RUN apt-get install -y cabextract
+
+ENV WINEDEBUG=warn+all
+ENV WINEPREFIX=/.winetest
+
+RUN dpkg --add-architecture i386
+RUN apt-get update
+RUN apt-get install -y wine32
+
+ADD install-addons.sh /install-addons.sh
+RUN /install-addons.sh
+
+ADD winetricks /winetricks
+#RUN /winetricks
+#RUN sh /winetricks mfc40 corefonts vcrun6
+
+ENV HOME /root
+WORKDIR $HOME
+
+RUN echo "alias ll='ls -lahF'" >> .profile
+RUN echo "alias lr='ls -latr'" >> .profile

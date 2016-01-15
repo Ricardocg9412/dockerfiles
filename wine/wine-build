@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/git/dockerfiles/wine/
+docker build -t soulshake/wine .
+cd -
