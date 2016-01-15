@@ -52,6 +52,9 @@ RUN mkdir -p /usr/share/icons/hicolor && \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /src/*.deb
 
+RUN apt-get update
+RUN apt-get install -y xfonts-scalable xfonts-100dpi xfonts-75dpi
+
 COPY local.conf /etc/fonts/local.conf
 
 # Autorun chrome
