@@ -1,0 +1,5 @@
+docker run --rm -it \
+    --device /dev/bus/usb \
+    --device /dev/usb \
+    --name yubico-piv-tool \
+    $DOCKER_HUB_USER/yubico-piv-tool
