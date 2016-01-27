@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/git/dockerfiles/picasa-wine/
+docker build -t soulshake/picasa .
+cd -

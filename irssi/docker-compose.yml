@@ -1,0 +1,59 @@
+crazyass:
+  build: .
+  volumes:
+    - /etc/resolv.conf:/etc/resolv.conf
+    - $HOME/.irssi
+    - $HOME/.irssi/config.crazyass:$HOME/.irssi/config
+    - /etc/localtime:/etc/localtime:ro
+    - /var/run/dbus:/var/run/dbus
+    #- /var/run/user/$(id -u):/var/run/user/$(id -u)
+    - /var/run/user/1000:/var/run/user/1000
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
+    - $HOME/.Xauthority:$HOME/.Xauthority
+    #- $HOME/.irssi:$HOME/.irssi
+  environment:
+    - TERM
+    - XAUTHORITY
+    - DBUS_SESSION_BUS_ADDRESS
+    - HOME
+    #- ~/.irssi:/root/.irssi
+    #- /home/aj/git/dockerfiles/openvpn/config.conf:/root/config.conf
+  net: host
+  environment:
+    - TERM
+  devices:
+    - /dev/net/tun:/dev/net/tun
+  cap_add:
+    - NET_ADMIN
+  command:
+    - "irssi"
+  user: "user"
+  working_dir: "/home"
+
+lxc:
+  build: .
+  #volumes_from:
+  #  - crazyass
+  volumes:
+    - /etc/resolv.conf:/etc/resolv.conf
+    - $HOME/.irssi
+    - $HOME/.irssi/config.scalix:$HOME/.irssi/config
+    - /etc/localtime:/etc/localtime:ro
+    - /var/run/dbus:/var/run/dbus
+    #- /var/run/user/$(id -u):/var/run/user/$(id -u)
+    - /var/run/user/1000:/var/run/user/1000
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
+    - $HOME/.Xauthority:$HOME/.Xauthority
+  net: host
+  environment:
+    - TERM
+  devices:
+    - /dev/net/tun:/dev/net/tun
+  cap_add:
+    - NET_ADMIN
+  command:
+    - "irssi"
+  user: "user"
+  working_dir: "/home"
