@@ -1,17 +1,8 @@
-name="lpass"
+#!/bin/bash
 
-if [ -z "$DOCKER_HUB_USER" ]
-then
-  echo "Please export DOCKER_HUB_USER environment variable."
-  exit 1
-fi
+# -v $HOME/.$dir_name:/root/.$dir_name \
 
-if [ "$1" != '-b' ] ; then
-    docker run --rm -it \
+docker run --rm -it \
+    --name lpass \
     -v $HOME/.lpass:/root/.lpass \
-    --name $name \
-    $DOCKER_HUB_USER/$name "$@"
-else
-    echo "building"
-    docker build -t $DOCKER_HUB_USER/$name .
-fi
+    $DOCKER_HUB_USER/lpass "$@"
