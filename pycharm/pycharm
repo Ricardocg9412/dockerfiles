@@ -1,0 +1,25 @@
+#!/bin/bash
+
+dir_name=$(dirname "$PWD")
+script_name=$(basename "$0")
+
+# -v $HOME/.$dir_name:/root/.$dir_name \
+
+# PYCHARM_JDK, JDK_HOME or JAVA_HOME
+# javac -version
+docker run --rm -it \
+    --name $script_name \
+    -e DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /usr/local/bin/charm \
+    -v $HOME/PycharmProjects:/root/PycharmProjects/ \
+    -v $HOME/.java/.userPrefs/prefs.xml:/root/.java/.userPrefs/prefs.xml \
+    -e DISPLAY=unix$DISPLAY \
+    -e QT_DEVICE_PIXEL_RATIO \
+    --device /dev/snd \
+    $DOCKER_HUB_USER/$script_name "$@"
+
+# kdialog
+# xmessage
+# notify-send
+# env: PYCHARM_JDK JDK_HOME JAVA_HOME 
