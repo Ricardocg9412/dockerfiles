@@ -1,0 +1,19 @@
+docker run -it --rm \
+    --name aws \
+    -e AWS_ACCESS_KEY_ID \
+    -e AWS_CONFIG_FILE \
+    -e AWS_DEFAULT_PROFILE \
+    -e AWS_DEFAULT_REGION \
+    -e AWS_DEFAULT_OUTPUT \
+    -e AWS_SECRET_ACCESS_KEY \
+    -e AWS_SESSION_TOKEN \
+    -v /home:/home \
+    -w `pwd` \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v /etc/localtime:/etc/localtime:ro \
+    soulshake/aws.cli "$@"
+
+    #--entrypoint bash \
+#-v $HOME/.aws:/root/.aws \
+# --log-driver none \
