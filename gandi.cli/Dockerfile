@@ -2,15 +2,11 @@ FROM debian:jessie
 
 RUN apt-get update && apt-get install -y \
 	python \
-    python-docutils
+	python-pip \
+    python-docutils \
+    sudo
 
-RUN apt-get install -y \
-    man \
-    vim \
-    wget
-
-RUN apt-get install -y \
-	python-pip
+RUN pip install gandi.cli
 
 ENV HOME /home/user
 
@@ -18,21 +14,15 @@ RUN useradd --create-home --home-dir $HOME user \
     && mkdir -p $HOME/.config/gandi \
     && chown -R user:user $HOME
 
-RUN apt-get install -y \
-    sudo
-
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR $HOME
-RUN pip install gandi.cli
 USER user
-
-RUN echo "alias ll='ls -alhF'" >> $HOME/.bashrc
-RUN echo "alias lr='ls -latr'" >> $HOME/.bashrc
 
 ENTRYPOINT [ "gandi" ]
 
-# Install manpages. Make sure to bindmount a location contained in the `manpath` of the host
+# Optional: install manpages so we can run 'man gandi' on the host
+# Make sure to bindmount a location contained in the host's `manpath` at run time.
 RUN sudo apt-get install -y wget man
 RUN wget https://raw.githubusercontent.com/Gandi/gandi.cli/master/gandicli.man.rst
 RUN rst2man --no-generator gandicli.man.rst > $HOME/gandi.1.man

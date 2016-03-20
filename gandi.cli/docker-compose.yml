@@ -5,13 +5,19 @@ gandi:
         - $HOME/.config/gandi:/home/user/.config/gandi/
         - $HOME/.ssh/:/home/user/.ssh/
         - /usr/local/man:/usr/local/man
+
+        # Alternate config file. If specified, environment must also contain GANDI_CONFIG
+        #- $HOME/.config/gandi/foo.yaml:/home/user/.config/gandi/foo.yaml
+
     environment:
         HOME: /home/user
-        API_KEY: ${GANDI_API_KEY}
-        GANDI_CONFIG: /home/user/.config/gandi/config.yaml
-        # Optional environment variables:
+        # Optional environment variables (see manpage for details):
+        # API_KEY: ${GANDI_API_KEY}
         # API_HOST: ${GANDI_API_HOST}
         # API_ENV: ${GANDI_API_ENV}
+
+        # Alternate config file. If specified, must also be mounted as a volume.
         # GANDI_CONFIG: ${GANDI_CONFIG}
+        # GANDI_CONFIG: /home/user/.config/gandi/foo.yaml
     entrypoint:
         - gandi
