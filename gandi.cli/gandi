@@ -1,0 +1,1 @@
+docker-compose -f ~/git/dockerfiles/gandi.cli/docker-compose.yml run gandi "$@"
