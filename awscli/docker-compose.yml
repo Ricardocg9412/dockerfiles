@@ -1,0 +1,23 @@
+aws:
+    build: .
+    container_name: aws.cli
+    volumes:
+        - $HOME/.aws/:/home/user/.aws/
+        - $HOME/.ssh/:/home/user/.ssh/
+        - /etc/localtime:/etc/localtime:ro
+        - /home:/home
+        # Alternate config file. If specified, environment must also contain AWS_CONFIG_FILE
+        #- $HOME/path/to/alternate/config/file:/home/user/.aws/custom-aws-config.yaml
+
+    environment:
+        HOME: /home/user
+        # Optional environment variables:
+        AWS_DEFAULT_PROFILE: ${AWS_DEFAULT_PROFILE}
+        # AWS_ACCESS_KEY_ID:
+        # AWS_SECRET_ACCESS_KEY:
+        # AWS_DEFAULT_OUTPUT:
+        # AWS_DEFAULT_REGION:
+        # AWS_SESSION_TOKEN:
+        # Alternate config file. If specified, must also be mounted as a volume.
+        # AWS_CONFIG_FILE: ${AWS_CONFIG_FILE}
+        # AWS_CONFIG_FILE: /home/user/.aws/custom-aws-config.yaml
