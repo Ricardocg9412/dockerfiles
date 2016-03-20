@@ -32,6 +32,12 @@ RUN echo "alias lr='ls -latr'" >> $HOME/.bashrc
 
 ENTRYPOINT [ "gandi" ]
 
-#RUN apt-get install -y wget man
-#RUN wget https://github.com/Gandi/gandi.cli/blob/master/gandicli.man.rst
-#RUN rst2man --no-generator gandicli.man.rst > gandi.1.man
+# Install manpages. Make sure to bindmount a location contained in the `manpath` of the host
+RUN sudo apt-get install -y wget man
+RUN wget https://raw.githubusercontent.com/Gandi/gandi.cli/master/gandicli.man.rst
+RUN rst2man --no-generator gandicli.man.rst > $HOME/gandi.1.man
+RUN sudo install -g 0 -o 0 -m 0644 $HOME/gandi.1.man /usr/local/man
+RUN sudo gzip /usr/local/man/gandi.1.man
+RUN sudo mkdir /usr/local/man/man1
+RUN sudo mv /usr/local/man/gandi.1.man.gz /usr/local/man/man1/gandi.1.gz
+

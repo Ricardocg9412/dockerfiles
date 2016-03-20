@@ -4,12 +4,14 @@ gandi:
     volumes:
         - $HOME/.config/gandi:/home/user/.config/gandi/
         - $HOME/.ssh/:/home/user/.ssh/
+        - /usr/local/man:/usr/local/man
     environment:
         HOME: /home/user
         API_KEY: ${GANDI_API_KEY}
-        #API_HOST: ${GANDI_API_HOST}
-        #API_ENV: ${GANDI_API_ENV}
         GANDI_CONFIG: /home/user/.config/gandi/config.yaml
-        #- GANDI_CONFIG=${GANDI_CONFIG}
+        # Optional environment variables:
+        # API_HOST: ${GANDI_API_HOST}
+        # API_ENV: ${GANDI_API_ENV}
+        # GANDI_CONFIG: ${GANDI_CONFIG}
     entrypoint:
-        - gandi 
+        - gandi
