@@ -1,0 +1,28 @@
+gitter:
+    build: .
+    container_name: gitter
+    devices:
+        - /dev/dri/card0:/dev/dri/card0 
+        - /dev/dri/controlD64:/dev/dri/controlD64 
+        - /dev/snd/controlC0:/dev/snd/controlC0 
+        - /dev/snd/controlC29:/dev/snd/controlC29 
+        - /dev/snd/hwC0D0:/dev/snd/hwC0D0 
+        - /dev/snd/pcmC0D0c:/dev/snd/pcmC0D0c 
+        - /dev/snd/pcmC0D0p:/dev/snd/pcmC0D0p 
+        - /dev/snd/seq:/dev/snd/seq 
+        - /dev/snd/timer:/dev/snd/timer 
+    volumes:
+        - /tmp/.X11-unix:/tmp/.X11-unix
+        - /run/user:/run/user
+        - /etc/localtime:/etc/localtime:ro
+        - $HOME/.pki/:/home/user/.pki/
+        - $HOME/.config/Gitter/:/home/user/.config/Gitter/
+        - $HOME/.config/autostart/:/home/user/.config/autostart/
+
+    environment:
+        DISPLAY: ${DISPLAY}
+
+    entrypoint:
+        - "sudo"
+        - "-E"
+        - "gitter"

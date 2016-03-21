@@ -1,0 +1,2 @@
+docker-compose -f ~/git/dockerfiles/gitter/docker-compose.yml run -d gitter "$@"
+
