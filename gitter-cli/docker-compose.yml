@@ -1,0 +1,6 @@
+gitter-cli:
+    build: .
+    environment:
+        GITTER_TOKEN: ${GITTER_TOKEN}
+    entrypoint:
+        - /entrypoint.sh

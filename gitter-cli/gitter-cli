@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker-compose -f ~/git/dockerfiles/gitter-cli/docker-compose.yml run gitter-cli "$@"
+
