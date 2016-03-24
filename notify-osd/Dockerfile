@@ -18,7 +18,7 @@
 #	jess/notify-osd
 
 FROM debian:sid
-MAINTAINER Jessie Frazelle <jess@linux.com>
+MAINTAINER AJ Bowen <aj@soulshake.net>
 
 RUN apt-get update && apt-get install -y \
 	at-spi2-core \

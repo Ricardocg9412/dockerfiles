@@ -1,0 +1,18 @@
+del_stopped notify_osd notify-osd notify_osd
+
+docker run -d \
+    -v /etc/machine-id:/etc/machine-id:ro \
+    -v /var/run/dbus:/var/run/dbus \
+    -v /var/run/user/$(id -u):/var/run/user/$(id -u) \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e XAUTHORITY \
+    -e DBUS_SESSION_BUS_ADDRESS \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=unix$DISPLAY \
+    -u $(whoami) -w "$HOME" \
+    -v $HOME/.Xauthority:$HOME/.Xauthority \
+    -v $HOME/.cache/dconf:$HOME/.cache/dconf \
+    --name notify_osd \
+    soulshake/notify-osd
