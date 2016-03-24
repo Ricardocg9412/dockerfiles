@@ -6,6 +6,11 @@ aws:
         - $HOME/.ssh/:/home/user/.ssh/
         - /etc/localtime:/etc/localtime:ro
         - /home:/home
+        #- /etc/passwd:/etc/passwd:ro
+        #- /etc/group:/etc/group:ro
+        #- /tmp/.X11-unix:/tmp/.X11-unix
+        #- /run/user:/run/user
+
         # Alternate config file. If specified, environment must also contain AWS_CONFIG_FILE
         #- $HOME/path/to/alternate/config/file:/home/user/.aws/custom-aws-config.yaml
 

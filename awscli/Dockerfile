@@ -1,14 +1,20 @@
 FROM debian:jessie
 MAINTAINER AJ Bowen <aj@soulshake.net>
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get upgrade -y
+RUN apt-get update
+
+RUN apt-get install -y \
+    curl \
+    sudo
+
+RUN apt-get install -y \
 	ca-certificates \
 	groff \
 	less \
     python \
     python-pip \
-    python-docutils \
-    sudo
+    python-docutils
 
 RUN pip install awscli
 
