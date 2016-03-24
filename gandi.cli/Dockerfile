@@ -1,4 +1,5 @@
 FROM debian:jessie
+MAINTAINER AJ Bowen <aj@soulshake.net>
 
 RUN apt-get update && apt-get install -y \
 	python \
@@ -9,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install gandi.cli
 
 ENV HOME /home/user
+ENV GANDI_CONFIG /home/user/.config/gandi/config.yaml
 
 RUN useradd --create-home --home-dir $HOME user \
     && mkdir -p $HOME/.config/gandi \
