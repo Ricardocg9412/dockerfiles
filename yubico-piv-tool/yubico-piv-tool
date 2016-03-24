@@ -1,5 +1,20 @@
+
 docker run --rm -it \
     --device /dev/bus/usb \
     --device /dev/usb \
     --name yubico-piv-tool \
     $DOCKER_HUB_USER/yubico-piv-tool
+
+yubico_piv_tool(){
+    del_stopped yubico-piv-tool
+
+    docker run --rm -it \
+        -v /etc/localtime:/etc/localtime:ro \
+        --device /dev/usb \
+        --device /dev/bus/usb \
+        --privileged \
+        --name yubico-piv-tool \
+        jess/yubico-piv-tool bash
+}
+# alias yubico-piv-tool="yubico_piv_tool"
+
