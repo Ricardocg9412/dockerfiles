@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker run --rm \
+    --name charles \
+    --net host \
+    -e XAUTHORITY \
+    -ti soulshake/charles "$@"
