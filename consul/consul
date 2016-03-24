@@ -1,3 +1,4 @@
+#!/bin/bash
 del_stopped consul
 
 # check if we passed args and if consul is running

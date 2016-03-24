@@ -1,5 +1,5 @@
 FROM alpine
-MAINTAINER Jessica Frazelle <jess@docker.com>
+MAINTAINER AJ Bowen <aj@soulshake.net>
 
 ENV PATH /go/bin:/usr/local/go/bin:$PATH
 ENV GOPATH /go
