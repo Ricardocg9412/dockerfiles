@@ -22,6 +22,7 @@ RUN dpkg --add-architecture i386 && \
 
 
 # Install Skype
+# http://get.skype.com/go/getskype-linux-deb-32
 RUN curl http://download.skype.com/linux/skype-debian_4.3.0.37-1_i386.deb > /usr/src/skype.deb && \ 
 	dpkg --force-depends -i /usr/src/skype.deb && \
 	apt-get install -fy \
