@@ -24,8 +24,6 @@ RUN useradd --create-home --home-dir $HOME user \
 
 ENV LANG C.UTF-8
 
-ENV ZNC_VERSION 1.6.1
-
 RUN buildDeps=' \
 		build-essential \
 		libssl-dev \
@@ -33,8 +31,11 @@ RUN buildDeps=' \
 	' \
 	&& set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& curl -sSL "http://znc.in/releases/znc-${ZNC_VERSION}.tar.gz" -o /tmp/znc.tar.gz \
+	&& rm -rf /var/lib/apt/lists/*
+
+ENV ZNC_VERSION 1.6.3
+
+RUN curl -sSL "http://znc.in/releases/znc-${ZNC_VERSION}.tar.gz" -o /tmp/znc.tar.gz \
 	&& mkdir -p /usr/src/znc \
 	&& tar -xzf /tmp/znc.tar.gz -C /usr/src/znc --strip-components 1 \
 	&& rm /tmp/znc.tar.gz* \
