@@ -1,0 +1,7 @@
+docker run --rm -it \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v $HOME/.gcalcli/home:/home/gcalcli/home \
+    -v $HOME/.gcalcli/work/oauth:/home/gcalcli/.gcalcli_oauth \
+    -v $HOME/.gcalcli/work/gcalclirc:/home/gcalcli/.gcalclirc \
+    --name gcalcli \
+    soulshake/gcalcli "$@"
