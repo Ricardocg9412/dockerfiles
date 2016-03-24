@@ -1,0 +1,30 @@
+docker run --rm -ti \
+    --net host \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /var/run/dbus:/var/run/dbus \
+    -v /var/run/user/$(id -u):/var/run/user/$(id -u) \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v $HOME/.Xauthority:$HOME/.Xauthority \
+    -v $(readlink -f $HOME/.irssi):$HOME/.irssi \
+    -v /etc/resolv.conf:/etc/resolv.conf \
+    -e TERM \
+    -e XAUTHORITY \
+    -e DBUS_SESSION_BUS_ADDRESS \
+    -e HOME \
+    -u $(whoami) -w "$HOME" \
+    --name irssi \
+    soulshake/irssi
+    #--entrypoint bash \
+
+    #- ~/.irssi:/root/.irssi
+    #- /home/aj/git/dockerfiles/openvpn/config.conf:/root/config.conf
+  #devices:
+  #  - /dev/net/tun:/dev/net/tun
+  #cap_add:
+  #  - NET_ADMIN
+  #command:
+  #  - "irssi"
+  #user: "user"
+  #working_dir: "/home"
+
