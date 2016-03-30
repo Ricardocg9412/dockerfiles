@@ -4,22 +4,9 @@ MAINTAINER AJ Bowen <aj@soulshake.net>
 RUN apt-get update && apt-get install -y \
 	python \
 	python-pip \
-    python-docutils \
-    sudo
+    python-docutils
 
 RUN pip install gandi.cli
-
-ENV HOME /home/user
-ENV GANDI_CONFIG /home/user/.config/gandi/config.yaml
-
-RUN useradd --create-home --home-dir $HOME user \
-    && mkdir -p $HOME/.config/gandi \
-    && chown -R user:user $HOME
-
-RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-WORKDIR $HOME
-USER user
 
 ENTRYPOINT [ "gandi" ]
 

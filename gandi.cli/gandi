@@ -1,6 +1,0 @@
-# Run the Gandi CLI in a Docker container
-
-# Add a local alias in your path pointing to this file, e.g.
-# ln -s ~/bin/gandi `pwd`/gandi
-
-docker-compose -f ~/git/dockerfiles/gandi.cli/docker-compose.yml run gandi "$@"
