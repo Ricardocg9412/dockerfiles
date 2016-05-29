@@ -1,0 +1,6 @@
+#!/bin/bash
+
+docker run --rm -ti \
+    -v ~/.journal/journal.txt:/root/journal.txt \
+    -v $XDG_CONFIG_HOME/jrnl:/root/.jrnl_config \
+    soulshake/jrnl "$@"
