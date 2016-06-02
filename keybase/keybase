@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker run -ti \
+    -v $HOME/.config/keybase:/root/.config/keybase \
+    -v $HOME/.cache/keybase:/root/.cache/keybase \
+    -v $HOME/.gnupg:/root/.gnupg \
+    soulshake/keybase "$@"
