@@ -1,0 +1,8 @@
+#!/bin/sh
+
+docker run --rm -it --name telegram \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -e DISPLAY=unix$DISPLAY \
+       -v /dev/snd:/dev/snd \
+       -v $HOME/.TelegramDesktop:/root/.TelegramDesktop \
+       soulshake/telegram
