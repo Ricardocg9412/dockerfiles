@@ -22,7 +22,7 @@ RUN buildDeps=' \
 	&& set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& git clone https://github.com/LastPass/lastpass-cli.git /usr/src/lastpass-cli \
+	&& git clone --depth 1 https://github.com/LastPass/lastpass-cli.git /usr/src/lastpass-cli \
 	&& cd /usr/src/lastpass-cli \
 	&& make \
 	&& make install \

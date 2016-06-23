@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 if [[ -z "$EMAIL" ]]; then
@@ -42,7 +42,15 @@ if [[ -d "$HOME/.gnupg" ]]; then
 	# social citizen of the world
 	{
 		echo
-		echo 'source /usr/share/doc/mutt/examples/gpg.rc'
+		if [ -f "/etc/Muttrc.gpg.dist" ]; then
+			echo 'source /etc/Muttrc.gpg.dist'
+		fi
+		if [ -f "/usr/share/doc/mutt/samples/gpg.rc" ]; then
+			echo 'source /usr/share/doc/mutt/samples/gpg.rc'
+		fi
+		if [ -f "/usr/share/doc/mutt/examples/gpg.rc" ]; then
+			echo 'source /usr/share/doc/mutt/examples/gpg.rc'
+		fi
 		if [[ ! -z "$GPG_ID" ]]; then
 			echo "set pgp_sign_as = $GPG_ID"
 		fi
@@ -62,7 +70,7 @@ if [[ -d "$HOME/.gnupg" ]]; then
 	} >> "$HOME/.mutt/muttrc"
 fi
 
-if [[ -e "$HOME/.muttrc.local" ]]; then
+if [ -e "$HOME/.muttrc.local" ]; then
 	echo "source $HOME/.muttrc.local" >> "$HOME/.mutt/muttrc"
 fi
 

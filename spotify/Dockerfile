@@ -10,19 +10,21 @@
 #	--name spotify \
 #	jess/spotify
 #
-FROM ubuntu:14.04
+FROM debian:sid
 MAINTAINER Jessie Frazelle <jess@linux.com>
 
-RUN apt-get update && apt-get install -y \
-	libpangoxft-1.0-0 \
+RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 \
+	&& echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list.d/spotify.list \
+	&& apt-get update && apt-get install -y \
 	alsa-utils \
-	software-properties-common \
-	--no-install-recommends && \
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59 && \
-	echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list.d/spotify.list && \
-	apt-get update && \
-	apt-get install --force-yes -y \
+	libgl1-mesa-dri \
+	libgl1-mesa-glx \
+	libpangoxft-1.0-0 \
+	libssl1.0.0 \
+	libxss1 \
 	spotify-client \
+	xdg-utils \
+	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV HOME /home/spotify

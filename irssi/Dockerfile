@@ -1,18 +1,8 @@
 FROM debian:jessie
 MAINTAINER AJ Bowen <aj@soulshake.net>
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		ca-certificates \
-		curl \
-		libdatetime-perl \
-		libgcrypt20-dev \
-		libglib2.0-0 \
-		libnotify4 \
-		libnotify-bin \
-		libwww-perl \
-		perl \
-		wget \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apk --no-cache add \
+	ca-certificates
 
 ENV LANG C.UTF-8
 
@@ -23,14 +13,16 @@ ENV IRSSI_VERSION 0.8.18
 ENV LIB_OTR_VERSION 4.1.0
 ENV IRSSI_OTR_VERSION 1.0.0
 
-RUN buildDeps=' \
+RUN set -x \
+	&& apk add --no-cache --virtual .build-deps \
 		autoconf \
 		automake \
-		bzip2 \
-		libglib2.0-dev \
-		libncurses-dev \
-		libperl-dev \
-		libssl-dev \
+		ca-certificates \
+		gcc \
+		glib-dev \
+		gnupg \
+		libc-dev \
+		libgcrypt-dev \
 		libtool \
 		lynx \
 		make \
@@ -64,21 +56,42 @@ RUN curl -sSL "https://otr.cypherpunks.ca/libotr-${LIB_OTR_VERSION}.tar.gz" -o /
 	&& gpg --verify /tmp/libotr.tar.gz.asc \
 	&& mkdir -p /usr/src/libotr \
 	&& tar -xzf /tmp/libotr.tar.gz -C /usr/src/libotr --strip-components 1 \
-	&& rm /tmp/libotr.tar.gz* \
-	&& cd /usr/src/libotr \
-	&& ./configure --with-pic --prefix=/usr \
-	&& make \
-	&& make install \
+	&& rm /tmp/libotr.tar.gz \
+	&& ( \
+		cd /usr/src/libotr \
+		&& ./configure \
+			--with-pic \
+			--prefix=/usr \
+		&& make \
+		&& make install \
+	) \
 	&& mkdir -p /usr/src/irssi-otr \
-	&& curl -sSL "https://github.com/cryptodotis/irssi-otr/archive/v${IRSSI_OTR_VERSION}.tar.gz" | tar -vxz --strip-components 1 -C /usr/src/irssi-otr \
-	&& cd /usr/src/irssi-otr \
-	&& ./bootstrap \
-	&& ./configure --prefix="/usr" \
-	&& make \
-	&& make install \
-	&& rm -rf /usr/src/irssi* \
-	&& rm -rf /usr/src/libotr* \
-	&& apt-get purge -y --auto-remove $buildDeps
+	&& wget "https://github.com/cryptodotis/irssi-otr/archive/v${IRSSI_OTR_VERSION}.tar.gz" -O /tmp/irssi-otr.tar.gz \
+	&& mkdir -p /usr/src/irssi-otr \
+	&& tar -xf /tmp/irssi-otr.tar.gz -C /usr/src/irssi-otr --strip-components 1 \
+	&& rm /tmp/irssi-otr.tar.gz \
+	&& ( \
+		cd /usr/src/irssi-otr \
+		&& wget "$PATCH_FOR_IRSSI_OTR" -O patch.diff \
+		&& patch -p1 < patch.diff \
+		&& ./bootstrap \
+		&& ./configure \
+			--prefix=/usr \
+		&& make \
+		&& make install \
+	) \
+	&& rm -rf /usr/src/irssi-$IRSSI_VERSION \
+	&& rm -rf /usr/src/libotr \
+	&& rm -rf /usr/src/irssi-otr \
+	&& runDeps="$( \
+		scanelf --needed --nobanner --recursive /usr \
+			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+			| sort -u \
+			| xargs -r apk info --installed \
+			| sort -u \
+	)" \
+	&& apk add --no-cache --virtual .irssi-rundeps $runDeps perl-libwww \
+	&& apk del .build-deps
 
 WORKDIR $HOME
 VOLUME $HOME/.irssi
