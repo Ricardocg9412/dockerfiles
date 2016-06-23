@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker run --rm -ti \
+    -v $HOME/.config/convox:/root/.convox \
+    soulshake/convox "$@"

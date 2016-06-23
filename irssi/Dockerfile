@@ -1,4 +1,5 @@
 FROM debian:jessie
+MAINTAINER AJ Bowen <aj@soulshake.net>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		ca-certificates \
@@ -13,16 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		wget \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV HOME /home/user
-RUN useradd --create-home --home-dir $HOME user \
-	&& mkdir -p $HOME/.irssi \
-	&& chown -R user:user $HOME
-
 ENV LANG C.UTF-8
 
 #RUN gpg --keyserver wwwkeys.pgp.net --recv-keys DDBEF0E1
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 7EE65E3082A5FB06AC7C368D00CCB587DDBEF0E1
-
 
 ENV IRSSI_VERSION 0.8.18
 ENV LIB_OTR_VERSION 4.1.0
@@ -88,5 +83,4 @@ RUN curl -sSL "https://otr.cypherpunks.ca/libotr-${LIB_OTR_VERSION}.tar.gz" -o /
 WORKDIR $HOME
 VOLUME $HOME/.irssi
 
-USER user
 CMD ["irssi"]

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker run -v /www --name www_data busybox true
+docker run --rm --volumes-from www_data busybox \
+  /bin/sh -c 'echo "<h1>Yo</h1>" > /www/index.html'
+docker run -d -p 80 --volumes-from www_data --name www fnichol/uhttpd
+
+docker run -d -p 4040 --link www:http --name www_ngrok soulshake/ngrok

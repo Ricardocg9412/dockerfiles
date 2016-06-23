@@ -1,9 +1,9 @@
 # credit to @jfrazelle, blame to @soulshake
 
 # add flags for proxy if passed
-local proxy=
-local map=
-local args=$@
+proxy=
+map=
+args=$@
 if [[ "$1" == "tor" ]]; then
     relies_on torproxy
 
@@ -19,7 +19,8 @@ del_stopped chrome
 #--memory 3gb \
     #--device /dev/usb \
     #--device /dev/bus/usb \
-docker run -d \
+#docker run -d \
+docker run --rm \
     --net host \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \

@@ -1,0 +1,34 @@
+FROM debian:jessie
+MAINTAINER AJ Bowen <aj@soulshake.net>
+
+RUN apt-get update && apt-get install -y \
+    aufs-tools \
+    automake \
+    build-essential \
+    curl \
+    dpkg-sig \
+    libcap-dev \
+    libsqlite3-dev \
+    mercurial \
+    reprepro \
+    ruby1.9.1 \
+    ruby1.9.1-dev \
+    s3cmd=1.1.* \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV LANG C.UTF-8
+
+RUN buildDeps=' \
+        git \
+        python-pip \
+    ' \
+    && set -x \
+    && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN mkdir -p /usr/src/znc \
+    && git clone GIT_REPO_URL /usr/src/whoiz \
+    && cd /usr/src/whoiz \
+    && pip install --upgrade .
+

@@ -9,8 +9,8 @@ if [[ "$state" == "true" ]] && [[ ! -z "$args" ]]; then
     return 0
 fi
 
+#--restart always \
 docker run -d \
-    --restart always \
     -v $HOME/.consul:/etc/consul.d \
     -v /var/run/docker.sock:/var/run/docker.sock \
     --net host \

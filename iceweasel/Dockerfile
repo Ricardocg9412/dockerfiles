@@ -13,4 +13,5 @@ RUN sed -i.bak 's/sid main/sid main contrib/g' /etc/apt/sources.list && \
 
 COPY local.conf /etc/fonts/local.conf
 
+LABEL clink="-v /home/aj/.mozilla/firefox:/root/.mozilla/firefox"
 ENTRYPOINT [ "iceweasel" ]

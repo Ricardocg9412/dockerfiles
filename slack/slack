@@ -1,6 +1,8 @@
 #!/bin/bash
 
-docker run --rm -it -d \
+del_stopped slack
+
+docker run -it -d \
     -v /etc/localtime:/etc/localtime:ro \
    -v /tmp/.X11-unix:/tmp/.X11-unix \
    -v $HOME/.config/Slack:/root/.config/Slack \

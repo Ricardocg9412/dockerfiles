@@ -1,0 +1,11 @@
+docker run -ti --rm --privileged \
+    -e DISPLAY=unix$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+    -v /dev/snd:/dev/snd \
+    -v /root/.BitwigStudio:/root/.BitwigStudio \
+    -v /root/BitwigStudio:/root/BitwigStudio \
+    -v /root/Bitwig\ Studio:/root/Bitwig\ Studio \
+    -v /tmp:/tmp \
+    --name bitwig-studio \
+    soulshake/bitwig-studio:1.3.0
+

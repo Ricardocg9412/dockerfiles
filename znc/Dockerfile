@@ -7,7 +7,7 @@
 #	jess/znc
 #
 FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+MAINTAINER AJ Bowen <aj@soulshake.net>
 
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
@@ -17,10 +17,6 @@ RUN apt-get update && apt-get install -y \
 	libwww-perl \
 	perl \
 	&& rm -rf /var/lib/apt/lists/*
-
-ENV HOME /home/user
-RUN useradd --create-home --home-dir $HOME user \
-	&& chown -R user:user $HOME
 
 ENV LANG C.UTF-8
 
@@ -47,7 +43,6 @@ RUN curl -sSL "http://znc.in/releases/znc-${ZNC_VERSION}.tar.gz" -o /tmp/znc.tar
 	&& apt-get purge -y --auto-remove $buildDeps
 
 WORKDIR $HOME
-USER user
 
 ENTRYPOINT [ "znc" ]
 CMD [ "-f" ]

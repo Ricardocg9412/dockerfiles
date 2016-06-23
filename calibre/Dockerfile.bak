@@ -1,0 +1,16 @@
+FROM debian:jessie
+MAINTAINER AJ Bowen <aj@soulshake.net>
+RUN apt-get update && apt-get install -y \
+    wget \
+    python
+
+#RUN wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
+
+
+WORKDIR /src
+RUN wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py > linux-installer.py
+RUN python2 /src/linux-installer.py
+RUN wget https://github.com/apprenticeharper/DeDRM_tools/releases/download/v6.4.3/DeDRM_tools_6.4.3.zip
+ENTRYPOINT bash
+#RUN python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
+

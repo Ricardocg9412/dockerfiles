@@ -1,5 +1,6 @@
 docker run --rm -ti \
     -v $TRAVIS_CONFIG_PATH:/root/.travis \
     -e $TRAVIS_TOKEN \
-    -e github=$github \
+    -e github=$GITHUB_TOKEN_TRAVIS \
+    -e $GITHUB_TOKEN_TRAVIS \
     soulshake/travis "$@"

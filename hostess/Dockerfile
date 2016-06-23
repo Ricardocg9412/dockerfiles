@@ -8,10 +8,17 @@ RUN apk update && apk add \
     unzip \
     git \
     make \
+    go \
     && rm -rf /var/cache/apk/*
 
 
-RUN git clone https://github.com/cbednarski/hostess /src/hostess
+ENV GO_VERSION="1.6"
+RUN curl https://storage.googleapis.com/golang/go.{$GO_VERSION}.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
+RUN echo "export PATH=$PATH:/usr/local/go/bin" >> /root/.bashrc
+
+WORKDIR /src
+RUN git clone https://github.com/cbednarski/hostess
 WORKDIR /src/hostess
 RUN make
 RUN make install

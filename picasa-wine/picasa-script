@@ -1,11 +1,11 @@
 #!/bin/bash
 # No --rm because the install requires manual clicking.
 # Build once, tagging the container, then `docker push`
-
-docker run --rm \
+#--rm \
+docker run \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v $HOME/Pictures \
+    -v $HOME/Pictures:/root/Pictures \
     -e DISPLAY=unix$DISPLAY \
     -e QT_DEVICE_PIXEL_RATIO \
     --device /dev/snd \

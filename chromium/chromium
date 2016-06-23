@@ -1,0 +1,8 @@
+#   # Run stateful data-on-host chromium. For ephemeral, remove -v /data/chromium:/data
+
+docker run \
+    -v /data/chromium:/data \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+   -e DISPLAY=unix$DISPLAY \
+   soulshake/chromium "$@"
+

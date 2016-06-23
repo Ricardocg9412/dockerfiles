@@ -1,0 +1,13 @@
+docker run -d \
+    --volume /home/aj/.ssh:/home/aj/.ssh \
+    --volume /usr/local/man:/usr/local/man \
+    --volume /tmp/.X11-unix:/tmp/.X11-unix \
+    --volume /run/user:/run/user \
+    --volume /dev/log:/dev/log \
+    --volume /etc/passwd:/etc/passwd:ro \
+    --volume /etc/group:/etc/group:ro \
+    --volume /etc/localtime:/etc/localtime:ro \
+    --volume /home/aj/.config:/home/aj/.config \
+    --volume /home/aj/.mozilla:/root/.mozilla \
+    -e DISPLAY \
+    soulshake/myiceweasel
