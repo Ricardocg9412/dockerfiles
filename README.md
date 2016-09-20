@@ -2,12 +2,14 @@
 
 [![Travis CI](https://travis-ci.org/jfrazelle/dockerfiles.svg?branch=master)](https://travis-ci.org/jfrazelle/dockerfiles)
 
-This is a repo to hold various Dockerfiles for images I create.
+This is a repo to hold various Dockerfiles. I forked it from
+[jess's dockerfiles repo](github.com/jfrazelle/dockerfiles).
 
 I try to make sure each has a command at the top for running it,
-if a file you are looking at does not have a command, please
-pull request it!
+or a small script in the same directory as the Dockerfile.
 
-Almost all of these live on dockerhub under [jess](https://hub.docker.com/u/jess/).
+Some of these live on the Docker Hub under
+[soulshake](https://hub.docker.com/u/soulshake/).
 
-You may also want to checkout my [dotfiles](https://github.com/jfrazelle/dotfiles), specifically the aliases for all these files which are here: [github.com/jfrazelle/dotfiles/blob/master/.dockerfunc](https://github.com/jfrazelle/dotfiles/blob/master/.dockerfunc).
+If you run a lot of desktop applications in containers, you may also be
+interested in [clink](https://github.com/soulshake/clink).
