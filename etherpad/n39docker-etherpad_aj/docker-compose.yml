@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+    # see https://hub.docker.com/r/tvelocity/etherpad-lite/
+    ethp:
+        #build: ./Dockerfile-etherpadlite
+        # Dockerfile from
+        # https://github.com/tvelocity/dockerfiles/blob/master/etherpad-lite/Dockerfile
+        build: .
+        image: tvelocity/etherpad-lite
+        #restart: always
+        environment:
+            ETHERPAD_TITLE: "Netz39 Etherpad"
+            ETHERPAD_VERISON: 1.2.12
+            ETHERPAD_DB_TYPE: postgres
+            ETHERPAD_DB_HOST: ethpdb
+            ETHERPAD_DB_USER: etherpad
+            ETHERPAD_DB_PASSWORD: bla
+            ETHERPAD_ADMIN_USER: admin
+            ETHERPAD_ADMIN_PASSWORD: bla
+        volumes:
+            - ethp_config:/opt/etherpad-lite/var/
+        ports:
+            - 9001:9001
+        #links:
+            #- ethpdb
+
+    # see https://docs.docker.com/samples/library/postgres/
+    ethpdb:
+        image: postgres:9.4
+        #restart: always
+        environment:
+            PGDATA: /var/lib/postgresql/data/pgdata
+            POSTGRES_USER: etherpad
+            POSTGRES_PASSWORD: bla
+            POSTGRES_DB: etherpad
+        volumes:
+            - ethp_data:/var/lib/postgresql/data/pgdata
+            - ./initdb.d:/docker-entrypoint-initdb.d
+            - ./backups:/tmp/backups
+
+volumes:
+    ethp_data:
+    ethp_config:
